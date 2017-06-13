@@ -39,10 +39,21 @@ atcfg_pre_configure() {
 	# Export build variables required by java.sh script
 	export pack_sys java_versions
 	# Get Java path.
-	java_path=$(${AT_BASE}/scripts/utilities/java.sh)
-	if [[ ${?} -ne 0 ]]; then
-		echo "Could not find a useful java."
-		return 1
+    # If JAVA_HOME is set use it, else the default
+    # searching for Java script takes action
+    if [[ -z ${JAVA_HOME} ]]; then
+        if [[ -e "${JAVA_HOME}/include/jvmti.h" ]]; then
+            echo "Could find the required header"
+            echo "${JAVA_HOME}/include/jvmti.h"
+        else
+            echo "Could find the required header: jvmti.h"
+            return 1
+        fi
+    else
+	       java_path=$(${AT_BASE}/scripts/utilities/java.sh)
+	       if [[ ${?} -ne 0 ]]; then
+		      echo "Could not find a useful java."
+		   return 1
 	fi
 }
 

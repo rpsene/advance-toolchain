@@ -65,6 +65,10 @@
 #					package building. If not provided, it's inferred
 #					by the contents of other configset variables.
 #
+#			JAVA_HOME - Specifies the location of the Java which
+#					will be used for building AT. If not provided
+#					the default IBM JVM will be required.
+#
 #	pack - Create a tarball with all the source code necessary to build AT
 #		on another server.
 #
